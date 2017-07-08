@@ -18,7 +18,7 @@ public class Game extends GameState {
 	
 	public Player p;
 	public Chunk c = new Chunk(0, 0, null);
-	public static Chunk ActiveChunk = null;
+	public Chunk ActiveChunk = null;
 
 	@Override
 	public void Start() {
@@ -43,7 +43,7 @@ public class Game extends GameState {
 
 	}
 	
-	public static void SetActiveChunk(Chunk chunk){
+	public void SetActiveChunk(Chunk chunk){
 		ActiveChunk = chunk;
 	}
 

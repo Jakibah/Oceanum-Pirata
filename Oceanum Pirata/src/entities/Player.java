@@ -1,6 +1,5 @@
 package entities;
 
-import org.lwjgl.util.Rectangle;
 import org.newdawn.slick.opengl.Texture;
 
 import main.InputHandler;
@@ -11,7 +10,6 @@ public class Player extends Entity {
 	private float WalkSpeed; 
 	private float RunSpeed;
 	private float ActualSpeed;
-	
 
 	public Player(Texture tex, float x, float y, float width, float height, float WalkSpeed, float RunSpeed) {
 		super(x, y, width, height);

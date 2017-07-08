@@ -1,14 +1,11 @@
 package tiles;
 
-import org.lwjgl.util.Rectangle;
-
 import main.Screen;
 
 public abstract class Tile {
 	
 	private TileType type;
 	private float x,y,width,height;
-	private Rectangle collider;
 	
 	public Tile(TileType type, float x, float y, float width, float height){
 		this.type = type;
@@ -16,11 +13,10 @@ public abstract class Tile {
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		collider = new Rectangle();
+		
 	}
 	
 	public void Update(){
-		collider.setBounds((int) x, (int) y, (int) width, (int) height);
 		Screen.DrawQuadGameTex(type.getTex(), x, y, width, height);
 	}
 
@@ -64,13 +60,6 @@ public abstract class Tile {
 		this.height = height;
 	}
 
-	public Rectangle getCollider() {
-		return collider;
-	}
-
-	public void setCollider(Rectangle collider) {
-		this.collider = collider;
-	}
 	
 	
 

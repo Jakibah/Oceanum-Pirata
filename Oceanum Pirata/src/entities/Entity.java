@@ -1,27 +1,26 @@
 package entities;
 
-import org.lwjgl.util.Rectangle;
+import org.lwjgl.util.Point;
 
 import main.Main;
-import main.Screen;
-import states.Game;
 import tiles.Chunk;
 import tiles.Tile;
 
 public abstract class Entity {
 	
 	private float x,y,width,height;
-	private Rectangle collider;
-	
 	private int Direction = 2;
+	private Point corner;
+	private Point corner2;
 	
 	public Entity(float x, float y, float width, float height){
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		collider = new Rectangle();
-	}
+		corner = new Point((int)x, (int)y+32);
+		corner2 = new Point((int) x + 32, (int) y - 32);
+		}
 	
 	public void move(float xa, float ya){
 		if(xa !=0 && ya !=0){
@@ -34,6 +33,22 @@ public abstract class Entity {
 		if(xa < 0) Direction = 3;
 		if(ya > 0) Direction = 2;
 		if(ya < 0) Direction = 0;
+		if(Direction == 0){
+			corner.setLocation((int) x, (int) y);
+			corner2.setLocation((int) x + 32, (int) y);
+		}
+		if(Direction == 1){
+			corner.setLocation((int)x + 32, (int)y);
+			corner2.setLocation((int) x + 32, (int) y+ 32);
+		}
+		if(Direction == 2){
+			corner = new Point((int)x, (int)y+32);
+			corner2 = new Point((int) x + 32, (int) y + 32);
+		}
+		if(Direction == 3){
+			corner = new Point((int)x, (int)y);
+			corner2 = new Point((int) x, (int) y + 32);
+		}
 		
 		if(!Collision(xa,ya)){
 			x += xa;
@@ -43,21 +58,21 @@ public abstract class Entity {
 	
 	private boolean Collision(float xa, float ya) {
 		boolean solid = false;
-		if(Direction == 1){
-			xa+=33;
+		Tile t = Chunk.getTileAt(Main.GAME.ActiveChunk.getTiles(), corner.getX()+xa, corner.getY()+ya);
+		Tile t2 = Chunk.getTileAt(Main.GAME.ActiveChunk.getTiles(), corner2.getX()+xa, corner2.getY()+ya);
+		if(t!=null && t.getType().isSolid()){
+			solid = true;
 		}
-		if(Direction == 2){
-			ya+=33;
+		if(t2 != null && t2.getType().isSolid()){
+			solid = true;
 		}
-		Tile t = Chunk.getTileAt(Game.ActiveChunk.getTiles(), x+xa, y+ya);
-			if(t!=null && t.getType().isSolid() && Screen.isColliding(this.getCollider(), t.getCollider())){
-				solid = true;
-			}
+		//System.out.println(solid);
 		return solid;
 	}
 
 	public void Update(){
-		collider.setBounds((int)getX(), (int)getY(), (int)getWidth(), (int)getHeight()); 
+		
+		
 	}
 
 	public float getX() {
@@ -98,14 +113,6 @@ public abstract class Entity {
 
 	public void setDirection(int direction) {
 		Direction = direction;
-	}
-
-	public Rectangle getCollider() {
-		return collider;
-	}
-
-	public void setCollider(Rectangle collider) {
-		this.collider = collider;
 	}
 	
 

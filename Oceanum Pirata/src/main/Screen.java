@@ -163,8 +163,9 @@ public class Screen {
 	}
 
 	public static boolean isColliding(Rectangle a, Rectangle b) {
-
+		
 		if (a.intersects(b)) {
+			System.out.println("Intersection");
 			return true;
 		}
 
