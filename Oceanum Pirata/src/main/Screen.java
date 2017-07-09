@@ -17,6 +17,8 @@ import static org.lwjgl.opengl.GL11.*;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.management.monitor.Monitor;
+
 public class Screen {
 
 	public static void CreateCanvas(int width, int height, String title, int fps) {
@@ -52,8 +54,8 @@ public class Screen {
 		System.exit(0);
 	}
 
-	public static void CreateCanvas(int width, int height, String title, int fps, boolean fullscreen) {
-
+	public static void CreateCanvas(String title, int fps) {
+		
 		try {
 			Display.setFullscreen(true);
 			Display.setTitle(title);
@@ -67,7 +69,7 @@ public class Screen {
 		}
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		glOrtho(0, width, height, 0, 1, -1);
+		glOrtho(0, Display.getDesktopDisplayMode().getWidth(), Display.getDesktopDisplayMode().getHeight(), 0, 1, -1);
 		glMatrixMode(GL_MODELVIEW);
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_BLEND);

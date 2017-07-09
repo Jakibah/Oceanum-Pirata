@@ -6,8 +6,8 @@ import main.Screen;
 
 public enum TileType {
 	
-	//TODO recode to solid for collision testing
-	Grass(true, Screen.QuickLoad("Grass"));
+	
+	Grass(false, Screen.QuickLoad("Grass"));
 	
 	private boolean solid;
 	private Texture tex;
