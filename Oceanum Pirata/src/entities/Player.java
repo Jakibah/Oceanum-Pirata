@@ -1,15 +1,17 @@
 package entities;
 
+import org.lwjgl.util.Rectangle;
 import org.newdawn.slick.opengl.Texture;
 
-import main.InputHandler;
 import main.Screen;
+import utils.InputHandler;
 
 public class Player extends Entity {
 	private Texture tex;
 	private float WalkSpeed; 
 	private float RunSpeed;
 	private float ActualSpeed;
+	private Rectangle Collider;
 
 	public Player(Texture tex, float x, float y, float width, float height, float WalkSpeed, float RunSpeed) {
 		super(x, y, width, height);
@@ -17,6 +19,7 @@ public class Player extends Entity {
 		this.WalkSpeed = WalkSpeed;
 		this.RunSpeed = RunSpeed;
 		ActualSpeed = WalkSpeed;
+		Collider = new Rectangle((int)x, (int)y, (int)width, (int)height);
 		
 		
 
@@ -35,8 +38,7 @@ public class Player extends Entity {
 			ActualSpeed = WalkSpeed;
 			
 		}
-		//System.out.println(this.getX() + ", " + this.getY());
-		
+		Collider.setLocation((int)this.getX(), (int)this.getY());
 	}
 
 	public Texture getTex() {
@@ -69,6 +71,14 @@ public class Player extends Entity {
 
 	public void setWalkSpeed(float walkSpeed) {
 		WalkSpeed = walkSpeed;
+	}
+
+	public Rectangle getCollider() {
+		return Collider;
+	}
+
+	public void setCollider(Rectangle collider) {
+		Collider = collider;
 	}
 
 	

@@ -7,7 +7,7 @@ import main.Screen;
 public enum TileType {
 	
 	
-	Grass(false, Screen.QuickLoad("Grass"));
+	Grass(false, Screen.QuickLoad("Grass")), Chest(true, Screen.QuickLoad("Chest"));
 	
 	private boolean solid;
 	private Texture tex;

@@ -1,7 +1,7 @@
 package utils;
 
-import tiles.GrassTile;
 import tiles.Tile;
+import tiles.data.GrassTile;
 
 public class ChunkGenerator {
 	
