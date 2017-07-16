@@ -1,11 +1,19 @@
 package tiles;
 
+import java.util.ArrayList;
+
+import items.GroundItem;
+import items.Item;
+import items.Sack;
 import main.Main;
 
 public class Chunk {
 
 	private int Xid, Yid;
 	private Tile[][] tiles;
+	public GroundItem[] items = new GroundItem[300];
+	
+	public Sack[] sacks = new Sack[300];;
 
 	public Chunk(int Xid, int Yid, Tile[][] tiles) {
 		this.setXid(Xid);
@@ -14,9 +22,71 @@ public class Chunk {
 	}
 
 	public void Update() {
+		
 		for (int i = 0; i < tiles.length; i++) {
 			for (int j = 0; j < tiles[i].length; j++) {
 				tiles[i][j].Update();
+			}
+		}
+		UpdateItems();
+	}
+	
+	public void AddItem(GroundItem g){
+		for(int i = 0; i < items.length; i++){
+			if(items[i] == null){
+				items[i] = g;
+				return;
+			}
+		}
+	}
+	
+	public void AddSack(Sack s){
+		for(int i = 0; i < sacks.length; i++){
+			if(sacks[i] == null){
+				sacks[i] = s;
+				return;
+			}
+		}
+	}
+	
+	public void RemoveItem(GroundItem g){
+		for(int i = 0; i < items.length; i++){
+			if(items[i] == g){
+				items[i] = null;
+				return;
+			}
+		}
+	}
+	public void RemoveSacks(Sack s){
+		for(int i = 0; i < sacks.length; i++){
+			if(sacks[i] == s){
+				sacks[i] = null;
+				return;
+			}
+		}
+	}
+	
+	
+	public void UpdateItems(){
+		for(int i = 0; i < items.length; i++){
+			if(items[i] != null){
+			items[i].Update();
+			}
+			for(int j = 0; j < items.length; j++){
+				if(items[i] != null && items[j] != null){
+				GroundItem.Merge(items[i], items[j]);
+			}
+			}
+		}
+		
+		for(int i = 0; i < sacks.length; i++){
+			if(sacks[i] != null){
+				sacks[i].Update();
+			}
+			for(int j = 0; j < sacks.length; j++){
+				if(sacks[i] != null && sacks[j] != null){
+					Sack.Merge(sacks[i], sacks[j]);
+				}
 			}
 		}
 	}
@@ -73,6 +143,18 @@ public class Chunk {
 
 	public void setYid(int yid) {
 		Yid = yid;
+	}
+
+	public float getHighestPriority() {
+		float p = 0;
+		for(GroundItem i : items){
+			if(i != null){
+			if(i.getPriority() > p){
+				p = i.getPriority();
+			}
+		}
+		}
+		return p;
 	}
 
 }
