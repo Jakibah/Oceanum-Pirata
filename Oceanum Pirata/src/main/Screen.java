@@ -20,9 +20,11 @@ import java.io.InputStream;
 import javax.management.monitor.Monitor;
 
 public class Screen {
+	
+	public static String TITLE;
 
 	public static void CreateCanvas(int width, int height, String title, int fps) {
-
+		TITLE = title;
 		try {
 			Display.setDisplayMode(new DisplayMode(width, height));
 			// Display.setFullscreen(true);

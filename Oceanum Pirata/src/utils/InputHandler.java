@@ -1,6 +1,8 @@
 package utils;
 
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.Display;
 
 import entities.Entity;
 import entities.Player;
@@ -16,6 +18,7 @@ public class InputHandler {
 	
 	public static boolean Running = false;
 	public static boolean looplock = false;
+	public static int MouseX, MouseY;
 	
 	public static void Update(StateType type){
 		if(type == StateType.Menu){
@@ -26,7 +29,7 @@ public class InputHandler {
 		
 	}
 	//TODO add player.getTileInFront
-	//TODO lootsacks
+	
 	private static void GameInput() {
 		Player p = Main.GAME.p;
 		
@@ -61,7 +64,8 @@ public class InputHandler {
 	}
 
 	private static void MenuInput() {
-		
+		MouseX = Mouse.getX();
+		MouseY = Display.getHeight() - Mouse.getY();
 		
 	}
 

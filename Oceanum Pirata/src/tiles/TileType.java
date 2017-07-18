@@ -2,12 +2,13 @@ package tiles;
 
 import org.newdawn.slick.opengl.Texture;
 
+import database.Textures;
 import main.Screen;
 
 public enum TileType {
 	
 	
-	Grass(false, Screen.QuickLoad("Grass")), Chest(true, Screen.QuickLoad("Chest"));
+	Grass(false, Textures.GRASS), Chest(true, Textures.CHEST);
 	
 	private boolean solid;
 	private Texture tex;
