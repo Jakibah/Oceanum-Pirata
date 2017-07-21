@@ -2,18 +2,25 @@ package tiles;
 
 import java.util.ArrayList;
 
+import org.lwjgl.opengl.Display;
+import org.lwjgl.util.Rectangle;
+
+import database.Textures;
 import items.GroundItem;
 import items.Item;
 import items.Sack;
 import main.Main;
+import main.Screen;
 
 public class Chunk {
 
 	private int Xid, Yid;
 	private Tile[][] tiles;
-	public GroundItem[] items = new GroundItem[300];
+	private Rectangle body = new Rectangle(), north = new Rectangle(), south = new Rectangle(), west = new Rectangle(), east = new Rectangle();
 	
-	public Sack[] sacks = new Sack[300];;
+	
+	public GroundItem[] items = new GroundItem[300];
+	public Sack[] sacks = new Sack[300];
 
 	public Chunk(int Xid, int Yid, Tile[][] tiles) {
 		this.setXid(Xid);
@@ -22,7 +29,27 @@ public class Chunk {
 	}
 
 	public void Update() {
-		
+		if(!this.body.intersects(Main.GAME.p.getCollider())){
+			
+		}
+		north.setBounds(Xid * 3200, Yid * 3200, 3200, (Display.getHeight() / 2));
+		west.setBounds(Xid * 3200, Yid * 3200, Display.getWidth() / 2,3200);
+		south.setBounds(Xid * 3200, (Yid * 3200) + 3200 - (Display.getHeight() / 2), 3200, Display.getHeight() / 2);
+		east.setBounds((Xid * 3200) + 3200 - (Display.getWidth() / 2), Yid * 3200, Display.getWidth() / 2,3200);
+		body.setBounds((Xid * 3200) - (Display.getWidth() / 2), (Yid * 3200) - (Display.getHeight() / 2), 3200 + (Display.getWidth()), 3200 + (Display.getHeight()));
+		//Screen.DrawQuadGameTex(Textures.CHEST, body.getX(), body.getY(), body.getWidth(), body.getHeight());
+		if(this.north.intersects(Main.GAME.p.getCollider())){
+			System.out.println("Leaving northern border");
+		}
+		if(this.west.intersects(Main.GAME.p.getCollider())){
+			System.out.println("Leaving western border");
+		}
+		if(this.south.intersects(Main.GAME.p.getCollider())){
+			System.out.println("Leaving southern border");
+		}
+		if(this.east.intersects(Main.GAME.p.getCollider())){
+			System.out.println("Leaving eastern border");
+		}
 		for (int i = 0; i < tiles.length; i++) {
 			for (int j = 0; j < tiles[i].length; j++) {
 				tiles[i][j].Update();

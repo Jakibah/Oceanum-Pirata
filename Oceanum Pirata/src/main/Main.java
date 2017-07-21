@@ -14,7 +14,7 @@ public class Main {
 	public static final Menu MENU = new Menu("Menu");
 	
 	public static GameState ActiveState;
-	static long starttime = 0;
+	static long startTtime = 0;
 	static long fpststart = 0;
 	static double currenttime = 0;
 	static int currentfps;
@@ -29,9 +29,9 @@ public class Main {
 	public static void Start() {
 		//TODO change hardcoded start state to menu
 		currenttime = System.currentTimeMillis() / 1000;
-		starttime = (long)currenttime;
+		startTtime = (long)currenttime;
 		Textures.Init();
-		ActiveState = MENU;
+		ActiveState = GAME;
 		ActiveState.Start();
 	}
 
@@ -41,10 +41,11 @@ public class Main {
 		InputHandler.Update(ActiveState.getType());
 		ActiveState.Update();
 		currentfps++;
-		fpst = System.currentTimeMillis() - fpststart; 
-		if(currenttime - starttime > 0){
-			starttime = (long)currenttime;
-			Display.setTitle(Screen.TITLE + "   " + currentfps + "fps" + ",  " + fpst + "ms/f");
+		fpst = (System.currentTimeMillis() - fpststart); 
+		String fpststring = String.valueOf(fpst);
+		if(currenttime - startTtime > 0){
+			startTtime = (long)currenttime;
+			Display.setTitle(Screen.TITLE + "   " + currentfps + "fps" + ",  " + fpststring + "ms/f");
 			
 			currentfps = 0;
 		}

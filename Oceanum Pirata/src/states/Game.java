@@ -30,7 +30,7 @@ public class Game extends GameState {
 	@Override
 	public void Start() {
 		//TODO character drawing uncollidable top member
-		p = new Player(Textures.PLAYER, -300, 0, 32, 32, 2, 2.5f);
+		p = new Player(Textures.PLAYER, 1600, 1600, 32, 32, 2, 2.5f);
 		c.setTiles(ChunkGenerator.Empty(c.getXid(), c.getYid()));
 		ActiveChunk = c;
 	}

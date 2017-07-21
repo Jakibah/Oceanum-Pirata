@@ -22,6 +22,7 @@ import javax.management.monitor.Monitor;
 public class Screen {
 	
 	public static String TITLE;
+	public static float RadiusX, RadiusY;
 
 	public static void CreateCanvas(int width, int height, String title, int fps) {
 		TITLE = title;
@@ -49,6 +50,8 @@ public class Screen {
 		while (!Display.isCloseRequested()) {
 			Display.update();
 			Display.sync(fps);
+			RadiusX = Display.getWidth() / 2;
+			RadiusY = Display.getHeight() / 2;
 			Main.Update();
 		}
 		Main.Stop();
@@ -81,6 +84,8 @@ public class Screen {
 		while (!Display.isCloseRequested()) {
 			Display.update();
 			Display.sync(fps);
+			RadiusX = Display.getWidth() / 2;
+			RadiusY = Display.getHeight() / 2;
 			Main.Update();
 		}
 		Main.Stop();
@@ -91,8 +96,10 @@ public class Screen {
 	public static void DrawQuadGameTex(Texture tex, float x, float y, float width, float height) {
 		tex.bind();
 		if (Main.ActiveState.getType() == StateType.Game) {
+			
 			glTranslatef(x - Main.GAME.p.getX() + Display.getWidth() / 2 - 16,
 					y - Main.GAME.p.getY() + Display.getHeight() / 2 - 16, 0);
+			
 		} else {
 			glTranslatef(x, y, 0);
 

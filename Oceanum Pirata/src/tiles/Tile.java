@@ -1,5 +1,6 @@
 package tiles;
 
+import main.Main;
 import main.Screen;
 
 public abstract class Tile {
@@ -17,7 +18,12 @@ public abstract class Tile {
 	}
 	
 	public void Update(){
+		
+		if(x > (Main.GAME.p.getX() - Screen.RadiusX) - 32 && x < (Main.GAME.p.getX() + Screen.RadiusX) + 32){
+			if(y > (Main.GAME.p.getY() - Screen.RadiusY) -32 && y < (Main.GAME.p.getY() + Screen.RadiusY) + 32){
 		Screen.DrawQuadGameTex(type.getTex(), x, y, width, height);
+		}
+		}
 	}
 
 	public TileType getType() {
