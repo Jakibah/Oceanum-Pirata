@@ -1,6 +1,7 @@
 package main;
 
 import org.lwjgl.opengl.DisplayMode;
+import org.lwjgl.util.Color;
 import org.lwjgl.util.Rectangle;
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.openal.AudioLoader;

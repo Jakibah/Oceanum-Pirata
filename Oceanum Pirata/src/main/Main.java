@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Random;
+
 import org.lwjgl.opengl.Display;
 
 import database.Textures;
@@ -7,6 +9,7 @@ import states.Game;
 import states.GameState;
 import states.Menu;
 import utils.InputHandler;
+import utils.SimplexNoise;
 
 public class Main {
 
@@ -21,12 +24,13 @@ public class Main {
 	static long fpst;
 	
 	public static void main(String[] args) {
-		Screen.CreateCanvas(1080, 720, "Oceanum Pirata", 120);
-		//Screen.CreateCanvas("Oceanum Pirata", 120);
+		//Screen.CreateCanvas(1080, 720, "Oceanum Pirata", 120);
+		Screen.CreateCanvas("Oceanum Pirata", 120);
 
 	}
 		
 	public static void Start() {
+		
 		//TODO change hardcoded start state to menu
 		currenttime = System.currentTimeMillis() / 1000;
 		startTtime = (long)currenttime;

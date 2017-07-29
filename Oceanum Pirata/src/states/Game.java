@@ -1,5 +1,7 @@
 package states;
 
+import java.util.Random;
+
 import org.lwjgl.opengl.GL11;
 
 import database.Textures;
@@ -11,6 +13,7 @@ import items.data.TestItem2;
 import main.Screen;
 import tiles.Chunk;
 import utils.ChunkGenerator;
+import utils.SimplexNoise;
 
 public class Game extends GameState {
 	
@@ -30,8 +33,11 @@ public class Game extends GameState {
 	@Override
 	public void Start() {
 		//TODO character drawing uncollidable top member
-		p = new Player(Textures.PLAYER, 1600, 1600, 32, 32, 2, 2.5f);
-		c.setTiles(ChunkGenerator.Empty(c.getXid(), c.getYid()));
+		Random rand = new Random(1234);
+		SimplexNoise noise = new SimplexNoise(rand, 0.3f ,100, 100);
+		noise.initialise();
+		p = new Player(Textures.PLAYER, 1600, 1600, 32, 32, 8, 2.5f);
+		c.setTiles(ChunkGenerator.FromSimplexNoise(noise, c.getXid(), c.getYid()));
 		ActiveChunk = c;
 	}
 

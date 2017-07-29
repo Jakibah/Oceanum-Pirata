@@ -14,6 +14,8 @@ public class Textures {
 	LEGENDARY = Screen.QuickLoad("Legendary");
 	PLAYER = Screen.QuickLoad("Player");
 	RARE = Screen.QuickLoad("Rare");
+	WATER = Screen.QuickLoad("Water");
+	SAND = Screen.QuickLoad("Sand");
 	}
 	
 	public static Texture CHEST;
@@ -23,6 +25,8 @@ public class Textures {
 	public static Texture LEGENDARY;
 	public static Texture PLAYER;
 	public static Texture RARE;
+	public static Texture WATER;
+	public static Texture SAND;
 		
 	
 

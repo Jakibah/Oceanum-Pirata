@@ -8,7 +8,7 @@ import main.Screen;
 public enum TileType {
 	
 	
-	Grass(false, Textures.GRASS), Chest(true, Textures.CHEST);
+	Grass(false, Textures.GRASS), Chest(true, Textures.CHEST), Water(false, Textures.WATER), Sand(false, Textures.SAND);
 	
 	private boolean solid;
 	private Texture tex;

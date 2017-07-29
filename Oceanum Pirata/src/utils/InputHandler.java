@@ -53,7 +53,7 @@ public class InputHandler {
 		}
 		//TODO delete this check
 		if(Keyboard.isKeyDown(Keyboard.KEY_B) && !looplock){
-			System.out.println("B");
+			//System.out.println("B");
 			//Chunk.setTileAt(new ChestTile(Chunk.getTileAt(Main.GAME.ActiveChunk.getTiles(), Main.GAME.p.getX() + 100, Main.GAME.p.getY()).getX(), Chunk.getTileAt(Main.GAME.ActiveChunk.getTiles(), Main.GAME.p.getX() + 100, Main.GAME.p.getY()).getY(), 32, 32), Main.GAME.p.getX() + 100, Main.GAME.p.getY());
 			new GroundItem(new TestItem(), Main.GAME.p.getX(), Main.GAME.p.getY());
 			looplock = true;
