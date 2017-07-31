@@ -1,9 +1,12 @@
 package utils;
 
+import java.util.Random;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
+import database.Sounds;
 import entities.Entity;
 import entities.Player;
 import items.GroundItem;
@@ -55,11 +58,22 @@ public class InputHandler {
 		if(Keyboard.isKeyDown(Keyboard.KEY_B) && !looplock){
 			//System.out.println("B");
 			//Chunk.setTileAt(new ChestTile(Chunk.getTileAt(Main.GAME.ActiveChunk.getTiles(), Main.GAME.p.getX() + 100, Main.GAME.p.getY()).getX(), Chunk.getTileAt(Main.GAME.ActiveChunk.getTiles(), Main.GAME.p.getX() + 100, Main.GAME.p.getY()).getY(), 32, 32), Main.GAME.p.getX() + 100, Main.GAME.p.getY());
-			new GroundItem(new TestItem(), Main.GAME.p.getX(), Main.GAME.p.getY());
+			//new GroundItem(new TestItem(), Main.GAME.p.getX(), Main.GAME.p.getY());
+			//long starttime = System.currentTimeMillis();
+			//Random r = new Random(Main.GAME.seed);
+			//SimplexNoise ns = new SimplexNoise(r, 0.3f, 6000, 6000, 0, 0);
+			//ns.initialise();
+			//System.out.println(System.currentTimeMillis() - starttime + "ms");
+			//System.exit(-1);
+			//SoundPlayer.PlayMusic(Sounds.TEST);
 			looplock = true;
+			
 		}
 		if(!Keyboard.isKeyDown(Keyboard.KEY_B) && looplock){
 			looplock = false;
+		}
+		if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)){
+			//SoundPlayer.StopAll();
 		}
 	}
 

@@ -4,12 +4,14 @@ import java.util.Random;
 
 import org.lwjgl.opengl.Display;
 
+import database.Sounds;
 import database.Textures;
 import states.Game;
 import states.GameState;
 import states.Menu;
 import utils.InputHandler;
 import utils.SimplexNoise;
+import utils.SoundPlayer;
 
 public class Main {
 
@@ -24,8 +26,8 @@ public class Main {
 	static long fpst;
 	
 	public static void main(String[] args) {
-		//Screen.CreateCanvas(1080, 720, "Oceanum Pirata", 120);
-		Screen.CreateCanvas("Oceanum Pirata", 120);
+		Screen.CreateCanvas(1080, 720, "Oceanum Pirata", 120);
+		//Screen.CreateCanvas("Oceanum Pirata", 120);
 
 	}
 		
@@ -35,6 +37,7 @@ public class Main {
 		currenttime = System.currentTimeMillis() / 1000;
 		startTtime = (long)currenttime;
 		Textures.Init();
+		Sounds.Init();
 		ActiveState = GAME;
 		ActiveState.Start();
 	}
@@ -43,6 +46,7 @@ public class Main {
 		currenttime = System.currentTimeMillis() / 1000;
 		fpststart = System.currentTimeMillis();
 		InputHandler.Update(ActiveState.getType());
+		//SoundPlayer.CheckforFinished();
 		ActiveState.Update();
 		currentfps++;
 		fpst = (System.currentTimeMillis() - fpststart); 
