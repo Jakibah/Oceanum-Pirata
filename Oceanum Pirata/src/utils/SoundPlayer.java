@@ -8,8 +8,8 @@ public class SoundPlayer {
 	
 	public static ArrayList<Audio> playing = new ArrayList<Audio>();
 	
-	public static void PlaySound(Audio a){
-		a.playAsSoundEffect(1, 1, false);
+	public static void PlaySound(Audio a, float x, float y){
+		a.playAsSoundEffect(1, 1, false, x, y, 0);
 		playing.add(a);
 	}
 	
