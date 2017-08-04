@@ -65,7 +65,7 @@ public class InputHandler {
 			//ns.initialise();
 			//System.out.println(System.currentTimeMillis() - starttime + "ms");
 			//System.exit(-1);
-			//SoundPlayer.PlayMusic(Sounds.TEST);
+			SoundPlayer.PlaySound(Sounds.TEST, 0, 0);
 			looplock = true;
 			
 		}
@@ -73,7 +73,7 @@ public class InputHandler {
 			looplock = false;
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)){
-			//SoundPlayer.StopAll();
+			SoundPlayer.StopAll();
 		}
 	}
 

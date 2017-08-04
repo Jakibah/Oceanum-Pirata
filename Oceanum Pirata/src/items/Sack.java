@@ -8,6 +8,7 @@ import org.newdawn.slick.opengl.Texture;
 
 import main.Main;
 import main.Screen;
+import tiles.Chunk;
 
 public class Sack {
 	
@@ -22,7 +23,7 @@ public class Sack {
 		this.width=width;
 		this.height=height;
 		collider = new Rectangle((int) x- 32, (int) y - 32, (int)this.getWidth() * 3, (int)this.getHeight() * 3);
-		Main.GAME.ActiveChunk.AddSack(this);
+		Chunk.getChunkAt(x, y).AddSack(this);
 	}
 	
 	public int getRarest(){
@@ -78,7 +79,7 @@ public class Sack {
 	
 
 	private void Destroy() {
-		Main.GAME.ActiveChunk.RemoveSacks(this);
+		Chunk.getChunkAt(x, y).RemoveSacks(this);
 	}
 
 	public float getX() {

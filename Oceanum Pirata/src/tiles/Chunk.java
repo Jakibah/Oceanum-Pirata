@@ -1,6 +1,7 @@
 package tiles;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.Rectangle;
@@ -11,6 +12,9 @@ import items.Item;
 import items.Sack;
 import main.Main;
 import main.Screen;
+import utils.ChunkGenerator;
+import utils.NoiseGenerator;
+import utils.SimplexNoise;
 
 public class Chunk {
 
@@ -38,17 +42,34 @@ public class Chunk {
 		east.setBounds((Xid * 3200) + 3200 - (Display.getWidth() / 2), Yid * 3200, Display.getWidth() / 2,3200);
 		body.setBounds((Xid * 3200) - (Display.getWidth() / 2), (Yid * 3200) - (Display.getHeight() / 2), 3200 + (Display.getWidth()), 3200 + (Display.getHeight()));
 		//Screen.DrawQuadGameTex(Textures.CHEST, body.getX(), body.getY(), body.getWidth(), body.getHeight());
+		
 		if(this.north.intersects(Main.GAME.p.getCollider())){
-			System.out.println("Leaving northern border");
-		}
+			if(Chunk.getChunkAt(this.getXid() * 3200, this.getYid() * 3200 - 10) == null){
+				float[][] noise = NoiseGenerator.generateOctavedSimplexNoise(this.Xid * 100, (this.Yid * 100) - 100, 100, 100, 8, 0.3f, 0.005f);
+			Main.GAME.ActiveChunksToAdd.add(new Chunk(this.getXid(), this.getYid() - 1, ChunkGenerator.FromSimplexNoise(noise,this.getXid(), this.getYid() - 1)));
+			}
+				}
 		if(this.west.intersects(Main.GAME.p.getCollider())){
-			System.out.println("Leaving western border");
+			if(Chunk.getChunkAt(this.getXid() * 3200 - 10, this.getYid() * 3200) == null){
+				float[][] noise = NoiseGenerator.generateOctavedSimplexNoise((this.getXid() * 100 - 100), this.getYid() * 100,100, 100, 8, 0.3f, 0.005f);
+				Main.GAME.ActiveChunksToAdd.add(new Chunk(this.getXid() - 1, this.getYid(), ChunkGenerator.FromSimplexNoise(noise, this.getXid()-1, this.getYid())));
+				}
 		}
 		if(this.south.intersects(Main.GAME.p.getCollider())){
-			System.out.println("Leaving southern border");
+			if(Chunk.getChunkAt(this.getXid() * 3200, this.getYid() * 3200 + 3210) == null){
+				float[][] noise = NoiseGenerator.generateOctavedSimplexNoise(this.getXid() * 100, (this.getYid() * 100) + 100, 100, 100, 8, 0.3f, 0.005f);
+				Main.GAME.ActiveChunksToAdd.add(new Chunk(this.getXid(), this.getYid() + 1, ChunkGenerator.FromSimplexNoise(noise, this.getXid(), this.getYid() + 1)));
+				}
 		}
 		if(this.east.intersects(Main.GAME.p.getCollider())){
-			System.out.println("Leaving eastern border");
+			if(Chunk.getChunkAt(this.getXid() * 3200 + 3210, this.getYid() * 3200) == null){
+				System.out.println("Run");
+				float[][] noise = NoiseGenerator.generateOctavedSimplexNoise((this.getXid() * 100) + 100, this.getYid() * 100, 100, 100, 8, 0.3f, 0.005f);
+				Main.GAME.ActiveChunksToAdd.add(new Chunk(this.getXid() + 1, this.getYid() , ChunkGenerator.FromSimplexNoise(noise,this.getXid() + 1, this.getYid())));
+				}
+		}
+		if(!this.body.intersects(Main.GAME.p.getCollider())){
+			Main.GAME.ActiveChunksToRemove.add(this);
 		}
 		for (int i = 0; i < tiles.length; i++) {
 			for (int j = 0; j < tiles[i].length; j++) {
@@ -136,16 +157,37 @@ public class Chunk {
 	}
 
 	public static void setTileAt(Tile t, float x, float y) {
-		Tile tochange = Chunk.getTileAt(Main.GAME.ActiveChunk.getTiles(), x, y);
-		for (int i = 0; i < Main.GAME.ActiveChunk.getTiles().length; i++) {
-			for (int j = 0; j < Main.GAME.ActiveChunk.getTiles()[i].length; j++) {
-				if(Main.GAME.ActiveChunk.getTiles()[i][j] == tochange){
-					Main.GAME.ActiveChunk.getTiles()[i][j] = null;
-					Main.GAME.ActiveChunk.getTiles()[i][j] = t;
+		Tile tochange = Chunk.getTileAt(Chunk.getChunkAt(x, y).getTiles(), x, y);
+		for (int i = 0; i < Chunk.getChunkAt(x, y).getTiles().length; i++) {
+			for (int j = 0; j < Chunk.getChunkAt(x, y).getTiles()[i].length; j++) {
+				if(Chunk.getChunkAt(x, y).getTiles()[i][j] == tochange){
+					Chunk.getChunkAt(x, y).getTiles()[i][j] = null;
+					Chunk.getChunkAt(x, y).getTiles()[i][j] = t;
 					return;
 				}
 			}
 		}
+	}
+	
+	public static Chunk getChunkAt(float x, float y){
+		Chunk ret = null;
+		for(Chunk c : Main.GAME.ActiveChunks){
+			
+			if(c.getXid() * 3200 <= x && c.getXid() * 3200 + 3200 >= x){
+				//System.out.println("Ok2");
+				if(c.getYid() * 3200  <= y && c.getYid() * 3200 + 3200 >= y){
+					
+					ret = c;
+				}
+					
+				
+			}
+			
+		}
+		if(ret == null){
+			System.out.println("There is no chunk at: " + x + ", " + y);
+		}
+		return ret;
 	}
 
 	public Tile[][] getTiles() {

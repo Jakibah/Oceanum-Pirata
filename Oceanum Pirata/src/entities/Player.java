@@ -3,7 +3,10 @@ package entities;
 import org.lwjgl.util.Rectangle;
 import org.newdawn.slick.opengl.Texture;
 
+import animations.Animation;
+import database.Textures;
 import main.Screen;
+import tiles.Chunk;
 import utils.InputHandler;
 
 public class Player extends Entity {
@@ -13,6 +16,7 @@ public class Player extends Entity {
 	private float ActualSpeed;
 	private Rectangle Collider;
 
+	Animation a = null;
 	public Player(Texture tex, float x, float y, float width, float height, float WalkSpeed, float RunSpeed) {
 		super(x, y, width, height);
 		this.tex = tex;
@@ -20,6 +24,13 @@ public class Player extends Entity {
 		this.RunSpeed = RunSpeed;
 		ActualSpeed = WalkSpeed;
 		Collider = new Rectangle((int)x, (int)y, (int)width, (int)height);
+		Texture[] texes = new Texture[4];
+		texes[0] = Textures.PLAYER;
+		texes[1] = Textures.CHEST;
+		texes[2] = Textures.WATER;
+		texes[3] = Textures.SAND;
+		
+		a = new Animation(120, texes);
 		
 		
 
@@ -28,6 +39,9 @@ public class Player extends Entity {
 	@Override
 	public void Update() {
 		super.Update();
+		a.Play();
+		a.Update();
+		tex = a.getActive();
 		Screen.DrawQuadGameTex(tex, this.getX(), this.getY(), this.getWidth(), this.getHeight());
 		
 		if(InputHandler.Running){
@@ -39,7 +53,10 @@ public class Player extends Entity {
 			
 		}
 		Collider.setLocation((int)this.getX(), (int)this.getY());
+		System.out.println("Xid: " + Chunk.getChunkAt(this.getX(), this.getY()).getXid() + ", Yid: " + Chunk.getChunkAt(this.getX(), this.getY()).getYid());
 	}
+	
+	
 
 	public Texture getTex() {
 		return tex;

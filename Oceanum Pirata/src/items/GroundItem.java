@@ -6,6 +6,7 @@ import org.lwjgl.util.Rectangle;
 import javafx.scene.shape.Circle;
 import main.Main;
 import main.Screen;
+import tiles.Chunk;
 
 public class GroundItem {
 	
@@ -19,9 +20,9 @@ public class GroundItem {
 		this.item = item;
 		this.x = x;
 		this.y = y;
-		this.priority = Main.GAME.ActiveChunk.getHighestPriority() + 1;
+		this.priority = Chunk.getChunkAt(x, y).getHighestPriority() + 1;
 		collider = new Rectangle((int) x- 32, (int) y - 32, (int)item.getWidth() * 3, (int)item.getHeight() * 32);
-		Main.GAME.ActiveChunk.AddItem(this);
+		Chunk.getChunkAt(x, y).AddItem(this);
 	}
 	
 	public void PickUp(){
@@ -49,7 +50,7 @@ public class GroundItem {
 	}
 	
 	public void Destroy(){
-		Main.GAME.ActiveChunk.RemoveItem(this);
+		Chunk.getChunkAt(x, y).RemoveItem(this);
 	}
 
 

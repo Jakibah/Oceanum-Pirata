@@ -4,6 +4,7 @@ import java.util.Random;
 
 import org.lwjgl.opengl.Display;
 
+import database.Fonts;
 import database.Sounds;
 import database.Textures;
 import states.Game;
@@ -12,11 +13,15 @@ import states.Menu;
 import utils.InputHandler;
 import utils.SimplexNoise;
 import utils.SoundPlayer;
+import utils.TextDrawer;
 
 public class Main {
 
 	public static final Game GAME = new Game("Game");
 	public static final Menu MENU = new Menu("Menu");
+	
+	//Init TextDrawers
+	public static TextDrawer Cardinal;
 	
 	public static GameState ActiveState;
 	static long startTtime = 0;
@@ -26,8 +31,8 @@ public class Main {
 	static long fpst;
 	
 	public static void main(String[] args) {
-		Screen.CreateCanvas(1080, 720, "Oceanum Pirata", 120);
-		//Screen.CreateCanvas("Oceanum Pirata", 120);
+		//Screen.CreateCanvas(1080, 720, "Oceanum Pirata", 120);
+		Screen.CreateCanvas("Oceanum Pirata", 120);
 
 	}
 		
@@ -38,6 +43,8 @@ public class Main {
 		startTtime = (long)currenttime;
 		Textures.Init();
 		Sounds.Init();
+		Fonts.Init();
+		Cardinal = new TextDrawer(Fonts.CARDINAL);
 		ActiveState = GAME;
 		ActiveState.Start();
 	}

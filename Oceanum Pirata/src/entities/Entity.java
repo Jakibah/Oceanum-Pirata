@@ -58,8 +58,8 @@ public abstract class Entity {
 	
 	private boolean Collision(float xa, float ya) {
 		boolean solid = false;
-		Tile t = Chunk.getTileAt(Main.GAME.ActiveChunk.getTiles(), corner.getX()+xa, corner.getY()+ya);
-		Tile t2 = Chunk.getTileAt(Main.GAME.ActiveChunk.getTiles(), corner2.getX()+xa, corner2.getY()+ya);
+		Tile t = Chunk.getTileAt(Chunk.getChunkAt(this.getX(), this.getY()).getTiles(), corner.getX()+xa, corner.getY()+ya);
+		Tile t2 = Chunk.getTileAt(Chunk.getChunkAt(this.getX(), this.getY()).getTiles(), corner2.getX()+xa, corner2.getY()+ya);
 		if(t!=null && t.getType().isSolid()){
 			solid = true;
 		}
