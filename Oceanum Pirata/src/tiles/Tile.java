@@ -21,7 +21,7 @@ public abstract class Tile {
 		
 		if(x > (Main.GAME.p.getX() - Screen.RadiusX) - 32 && x < (Main.GAME.p.getX() + Screen.RadiusX) + 32){
 			if(y > (Main.GAME.p.getY() - Screen.RadiusY) -32 && y < (Main.GAME.p.getY() + Screen.RadiusY) + 32){
-		Screen.DrawQuadGameTex(type.getTex(), x, y, width, height);
+		Screen.DrawQuadGameTex(type.getTex(), x, y, width, height, true);
 		}
 		}
 	}

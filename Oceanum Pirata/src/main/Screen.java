@@ -94,9 +94,9 @@ public class Screen {
 		System.exit(0);
 	}
 
-	public static void DrawQuadGameTex(Texture tex, float x, float y, float width, float height) {
+	public static void DrawQuadGameTex(Texture tex, float x, float y, float width, float height, boolean translate) {
 		tex.bind();
-		if (Main.ActiveState.getType() == StateType.Game) {
+		if (translate) {
 			
 			glTranslatef(x - Main.GAME.p.getX() + Display.getWidth() / 2 - 16,
 					y - Main.GAME.p.getY() + Display.getHeight() / 2 - 16, 0);

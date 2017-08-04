@@ -6,6 +6,7 @@ import database.Textures;
 import gui.Button;
 import gui.GUI;
 import main.Screen;
+import utils.InputHandler;
 
 public class Menu extends GameState {
 
@@ -30,6 +31,7 @@ public class Menu extends GameState {
 			}
 			
 		});
+		
 
 	}
 
@@ -42,6 +44,7 @@ public class Menu extends GameState {
 		}
 		}
 		CheckForDuplicates();
+		//Screen.DrawQuadGameTex(Textures.CHEST, InputHandler.MouseX, InputHandler.MouseY, 32, 32);
 	}
 
 	private void CheckForDuplicates() {

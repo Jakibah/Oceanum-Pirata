@@ -53,7 +53,7 @@ public class Sack {
 	
 	public void Update(){
 		rarity = getRarest();
-		Screen.DrawQuadGameTex(getRarityTexture(), x, y, width, height);
+		Screen.DrawQuadGameTex(getRarityTexture(), x, y, width, height, true);
 		if(Keyboard.isKeyDown(Keyboard.KEY_E) && this.collider.intersects(Main.GAME.p.getCollider())){
 			PickUp();
 		}

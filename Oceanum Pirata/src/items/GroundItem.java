@@ -45,7 +45,7 @@ public class GroundItem {
 		if(Keyboard.isKeyDown(Keyboard.KEY_E) && Screen.isColliding(collider, Main.GAME.p.getCollider())){
 			PickUp();
 		}
-		Screen.DrawQuadGameTex(item.getTex(), x, y, item.getWidth(), item.getHeight());
+		Screen.DrawQuadGameTex(item.getTex(), x, y, item.getWidth(), item.getHeight(), true);
 		
 	}
 	

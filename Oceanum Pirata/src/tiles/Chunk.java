@@ -63,7 +63,7 @@ public class Chunk {
 		}
 		if(this.east.intersects(Main.GAME.p.getCollider())){
 			if(Chunk.getChunkAt(this.getXid() * 3200 + 3210, this.getYid() * 3200) == null){
-				System.out.println("Run");
+				//System.out.println("Run");
 				float[][] noise = NoiseGenerator.generateOctavedSimplexNoise((this.getXid() * 100) + 100, this.getYid() * 100, 100, 100, 8, 0.3f, 0.005f);
 				Main.GAME.ActiveChunksToAdd.add(new Chunk(this.getXid() + 1, this.getYid() , ChunkGenerator.FromSimplexNoise(noise,this.getXid() + 1, this.getYid())));
 				}

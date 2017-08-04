@@ -15,6 +15,7 @@ import main.Main;
 import main.Screen;
 import tiles.Chunk;
 import utils.ChunkGenerator;
+import utils.InputHandler;
 import utils.NoiseGenerator;
 import utils.SimplexNoise;
 
@@ -44,7 +45,7 @@ public class Game extends GameState {
 		new SimplexNoise(seed);
 		
 		float[][] noise = NoiseGenerator.generateOctavedSimplexNoise(0, 0, 100, 100, 8, 0.3f, 0.005f);
-		p = new Player(Textures.PLAYER, 1600, 1600, 32, 32, 8, 2.5f);
+		p = new Player(Textures.PLAYER, 0, 0, 32, 32, 8, 2.5f);
 		c.setTiles(ChunkGenerator.FromSimplexNoise(noise , c.getXid(), c.getYid()));
 		ActiveChunks.add(c);
 	}
@@ -56,6 +57,8 @@ public class Game extends GameState {
 			c.Update();
 		}
 		p.Update();
+		Screen.DrawQuadGameTex(Textures.CHEST, InputHandler.MouseX, InputHandler.MouseY, 32, 32, true);
+		System.out.println(InputHandler.MouseX + ", " + InputHandler.MouseY);
 		ActiveChunks.removeAll(ActiveChunksToRemove);
 		ActiveChunksToRemove.clear();
 		ActiveChunks.addAll(ActiveChunksToAdd);

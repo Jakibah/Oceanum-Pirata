@@ -42,7 +42,7 @@ public class Player extends Entity {
 		a.Play();
 		a.Update();
 		tex = a.getActive();
-		Screen.DrawQuadGameTex(tex, this.getX(), this.getY(), this.getWidth(), this.getHeight());
+		Screen.DrawQuadGameTex(tex, this.getX(), this.getY(), this.getWidth(), this.getHeight(), true);
 		
 		if(InputHandler.Running){
 			
@@ -53,7 +53,7 @@ public class Player extends Entity {
 			
 		}
 		Collider.setLocation((int)this.getX(), (int)this.getY());
-		System.out.println("Xid: " + Chunk.getChunkAt(this.getX(), this.getY()).getXid() + ", Yid: " + Chunk.getChunkAt(this.getX(), this.getY()).getYid());
+//		System.out.println("Xid: " + Chunk.getChunkAt(this.getX(), this.getY()).getXid() + ", Yid: " + Chunk.getChunkAt(this.getX(), this.getY()).getYid());
 	}
 	
 	

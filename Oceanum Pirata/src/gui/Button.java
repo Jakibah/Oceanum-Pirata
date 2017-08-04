@@ -49,7 +49,7 @@ public class Button extends GUI{
 				run.run();
 			}
 		}
-		Screen.DrawQuadGameTex(actualtex, x, y, width, height);
+		Screen.DrawQuadGameTex(actualtex, x, y, width, height, false);
 	}
 	
 	

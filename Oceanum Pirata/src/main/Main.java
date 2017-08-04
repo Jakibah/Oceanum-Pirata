@@ -31,8 +31,8 @@ public class Main {
 	static long fpst;
 	
 	public static void main(String[] args) {
-		//Screen.CreateCanvas(1080, 720, "Oceanum Pirata", 120);
-		Screen.CreateCanvas("Oceanum Pirata", 120);
+		Screen.CreateCanvas(1080, 720, "Oceanum Pirata", 120);
+		//Screen.CreateCanvas("Oceanum Pirata", 120);
 
 	}
 		

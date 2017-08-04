@@ -7,12 +7,14 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
 import database.Sounds;
+import database.Textures;
 import entities.Entity;
 import entities.Player;
 import items.GroundItem;
 import items.Item;
 import items.data.TestItem;
 import main.Main;
+import main.Screen;
 import states.StateType;
 import tiles.Chunk;
 import tiles.data.ChestTile;
@@ -21,7 +23,7 @@ public class InputHandler {
 	
 	public static boolean Running = false;
 	public static boolean looplock = false;
-	public static int MouseX, MouseY;
+	public static int MouseX, MouseY, GUIMouseX, GUIMouseY;
 	
 	public static void Update(StateType type){
 		if(type == StateType.Menu){
@@ -35,7 +37,10 @@ public class InputHandler {
 	
 	private static void GameInput() {
 		Player p = Main.GAME.p;
-		
+		GUIMouseX = Mouse.getX();
+		GUIMouseY = Display.getHeight() - Mouse.getY();
+		MouseX = (int) (Mouse.getX() + Main.GAME.p.getX() - (Display.getWidth() / 2) + 16);
+		MouseY = (int) (Display.getHeight() - Mouse.getY() + Main.GAME.p.getY() - (Display.getHeight() / 2) + 16); 
 		if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)){
 			Running = true;
 		}else{
@@ -75,7 +80,11 @@ public class InputHandler {
 		if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)){
 			SoundPlayer.StopAll();
 		}
-	}
+			
+			
+			
+		}
+	
 
 	private static void MenuInput() {
 		MouseX = Mouse.getX();
