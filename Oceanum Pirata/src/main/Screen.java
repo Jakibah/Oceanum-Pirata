@@ -21,7 +21,7 @@ import java.io.InputStream;
 import javax.management.monitor.Monitor;
 
 public class Screen {
-	
+
 	public static String TITLE;
 	public static float RadiusX, RadiusY;
 
@@ -61,7 +61,7 @@ public class Screen {
 	}
 
 	public static void CreateCanvas(String title, int fps) {
-		
+		TITLE = title;
 		try {
 			Display.setFullscreen(true);
 			Display.setTitle(title);
@@ -97,15 +97,15 @@ public class Screen {
 	public static void DrawQuadGameTex(Texture tex, float x, float y, float width, float height, boolean translate) {
 		tex.bind();
 		if (translate) {
-			
+
 			glTranslatef(x - Main.GAME.p.getX() + Display.getWidth() / 2 - 16,
 					y - Main.GAME.p.getY() + Display.getHeight() / 2 - 16, 0);
-			
+
 		} else {
 			glTranslatef(x, y, 0);
 
 		}
-		//glTranslatef(x, y, 0);
+		// glTranslatef(x, y, 0);
 		glBegin(GL_QUADS);
 		glTexCoord2f(0, 0);
 		glVertex2f(0, 0);
@@ -120,15 +120,32 @@ public class Screen {
 
 	}
 
-	/*
-	 * public static void DrawQuadTexRot(Texture tex, float x, float y, float
-	 * width, float height, float angle){ tex.bind(); glTranslatef(x + width /
-	 * 2, y + height / 2, 0); glRotatef(angle, 0, 0, 1); glTranslatef(- width /
-	 * 2, - height / 2, 0); glBegin(GL_QUADS); glTexCoord2f(0, 0); glVertex2f(0,
-	 * 0); glTexCoord2f(1, 0); glVertex2f(width, 0); glTexCoord2f(1, 1);
-	 * glVertex2f(width, height); glTexCoord2f(0, 1); glVertex2f(0, height);
-	 * glEnd(); glLoadIdentity(); }
-	 */
+	public static void DrawQuadGameTex(Texture tex, float x, float y, float width, float height, float angle, boolean translate) {
+		tex.bind();
+		if (translate) {
+
+			glTranslatef(x - Main.GAME.p.getX() + Display.getWidth() / 2 - 16,
+					y - Main.GAME.p.getY() + Display.getHeight() / 2 - 16, 0);
+
+		} else {
+			glTranslatef(x, y, 0);
+
+		}
+		glRotatef(angle, 0, 0, 1);
+		glTranslatef(-width / 2, -height / 2, 0);
+		glBegin(GL_QUADS);
+		glTexCoord2f(0, 0);
+		glVertex2f(0, 0);
+		glTexCoord2f(1, 0);
+		glVertex2f(width, 0);
+		glTexCoord2f(1, 1);
+		glVertex2f(width, height);
+		glTexCoord2f(0, 1);
+		glVertex2f(0, height);
+		glEnd();
+		glLoadIdentity();
+	}
+
 	public static float LookAt(int myx, int myy, int x, int y) {
 
 		double angleTemp = Math.atan2(y - myy, x - myx);
@@ -175,7 +192,7 @@ public class Screen {
 	}
 
 	public static boolean isColliding(Rectangle a, Rectangle b) {
-		
+
 		if (a.intersects(b)) {
 			return true;
 		}

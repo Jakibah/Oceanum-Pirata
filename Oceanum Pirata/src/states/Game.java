@@ -7,8 +7,6 @@ import org.lwjgl.opengl.GL11;
 
 import database.Textures;
 import entities.Player;
-import items.GroundItem;
-import items.Item;
 import items.data.TestItem;
 import items.data.TestItem2;
 import main.Main;
@@ -35,6 +33,7 @@ public class Game extends GameState {
 	public ArrayList<Chunk> ActiveChunksToAdd = new ArrayList<Chunk>();
 	public ArrayList<Chunk> ActiveChunksToRemove = new ArrayList<Chunk>();
 	public int seed = 21;
+	int angle = 0;
 	TestItem t1;
 	TestItem2 t2;
 
@@ -57,13 +56,14 @@ public class Game extends GameState {
 			c.Update();
 		}
 		p.Update();
-		Screen.DrawQuadGameTex(Textures.CHEST, InputHandler.MouseX, InputHandler.MouseY, 32, 32, true);
 		System.out.println(InputHandler.MouseX + ", " + InputHandler.MouseY);
 		ActiveChunks.removeAll(ActiveChunksToRemove);
 		ActiveChunksToRemove.clear();
 		ActiveChunks.addAll(ActiveChunksToAdd);
 		ActiveChunksToAdd.clear();
-		Main.Cardinal.Draw(10, 10, "Sup");
+		Main.Cardinal.Draw(10, 10, "U thiccboi");
+		angle++;
+		Screen.DrawQuadGameTex(Textures.CHEST, 0, 0, 32, 32, angle, true);
 		//System.out.println(ActiveChunks.size());
 	}
 
