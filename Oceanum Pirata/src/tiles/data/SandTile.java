@@ -1,7 +1,5 @@
 package tiles.data;
 
-import main.Main;
-import tiles.Chunk;
 import tiles.Tile;
 import tiles.TileType;
 
@@ -17,27 +15,8 @@ public class SandTile extends Tile{
 	public void Update(){
 		super.Update();
 		
-		if(first == true){
-			
-			first = false;
-			if(Chunk.getTileAt(Chunk.getChunkAt(this.getX(), this.getY()).getTiles(), this.getX(), this.getY() + 32) instanceof GrassTile &&
-					Chunk.getTileAt(Chunk.getChunkAt(this.getX(), this.getY()).getTiles(), this.getX(), this.getY() - 32) instanceof GrassTile){
-				Chunk.setTileAt(new GrassTile(this.getX(),  this.getY(),  32 , 32), this.getX(), this.getY());
-			}
-			
-			if(Chunk.getTileAt(Chunk.getChunkAt(this.getX(), this.getY()).getTiles(), this.getX(), this.getY() + 32) instanceof WaterTile){
-				sides++;
-			} if (Chunk.getTileAt(Chunk.getChunkAt(this.getX(), this.getY()).getTiles(), this.getX() + 32, this.getY()) instanceof WaterTile){
-				sides++;
-			}if(Chunk.getTileAt(Chunk.getChunkAt(this.getX(), this.getY()).getTiles(), this.getX(), this.getY() - 32) instanceof WaterTile){
-				sides++;
-			}if(Chunk.getTileAt(Chunk.getChunkAt(this.getX(), this.getY()).getTiles(), this.getX() - 32, this.getY()) instanceof WaterTile){
-				sides++;
-			}
-			if(sides > 2){
-				Chunk.setTileAt(new WaterTile(this.getX(),  this.getY(),  32 , 32), this.getX(), this.getY());
-			}
+		
 		}
 	}
 
-}
+

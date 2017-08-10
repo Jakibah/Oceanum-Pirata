@@ -1,9 +1,6 @@
 package tiles.data;
 
-import main.Main;
-import main.Screen;
 import tiles.InteractableTile;
-import tiles.Tile;
 import tiles.TileType;
 
 public class ChestTile extends InteractableTile{

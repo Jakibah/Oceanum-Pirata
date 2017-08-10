@@ -12,17 +12,26 @@ import utils.InputHandler;
 public class Player extends Entity {
 	private Texture tex;
 	private float WalkSpeed; 
-	private float RunSpeed;
+	private float RunSpeed, SailSpeed;
 	private float ActualSpeed;
 	private Rectangle Collider;
+	private PlayerType type;
+	private float angle = 0;
+	private float Xtarget, Ytarget;
+	public boolean sail;
 
 	Animation a = null;
-	public Player(Texture tex, float x, float y, float width, float height, float WalkSpeed, float RunSpeed) {
+	public Player(Texture tex, float x, float y, float width, float height, float WalkSpeed, float RunSpeed, PlayerType type, float SailSpeed) {
 		super(x, y, width, height);
 		this.tex = tex;
 		this.WalkSpeed = WalkSpeed;
 		this.RunSpeed = RunSpeed;
 		ActualSpeed = WalkSpeed;
+		this.type = type;
+		this.SailSpeed = SailSpeed;
+		Xtarget = x;
+		Ytarget = y;
+		sail = false;
 		Collider = new Rectangle((int)x, (int)y, (int)width, (int)height);
 		Texture[] texes = new Texture[4];
 		texes[0] = Textures.PLAYER;
@@ -39,6 +48,7 @@ public class Player extends Entity {
 	@Override
 	public void Update() {
 		super.Update();
+		if(this.getType().equals(PlayerType.Player)){
 		a.Play();
 		a.Update();
 		tex = a.getActive();
@@ -52,9 +62,18 @@ public class Player extends Entity {
 			ActualSpeed = WalkSpeed;
 			
 		}
+		}else if(this.getType().equals(PlayerType.Boat)){
+			Screen.DrawQuadGameTex(tex, this.getX(), this.getY(), this.getWidth(), this.getHeight(), angle, true);
+			ActualSpeed = SailSpeed;
+			System.out.println(sail);
+			if(sail){
+				this.move((this.getXtarget() - this.getX())/(64*ActualSpeed),(this.getYtarget() - this.getY())/(64*ActualSpeed));
+			}
+				
+			}
+		
 		Collider.setLocation((int)this.getX(), (int)this.getY());
-//		System.out.println("Xid: " + Chunk.getChunkAt(this.getX(), this.getY()).getXid() + ", Yid: " + Chunk.getChunkAt(this.getX(), this.getY()).getYid());
-	}
+		}
 	
 	
 
@@ -96,6 +115,46 @@ public class Player extends Entity {
 
 	public void setCollider(Rectangle collider) {
 		Collider = collider;
+	}
+
+	public float getSailSpeed() {
+		return SailSpeed;
+	}
+
+	public void setSailSpeed(float sailSpeed) {
+		SailSpeed = sailSpeed;
+	}
+
+	public PlayerType getType() {
+		return type;
+	}
+
+	public void setType(PlayerType type) {
+		this.type = type;
+	}
+
+	public float getAngle() {
+		return angle;
+	}
+
+	public void setAngle(float angle) {
+		this.angle = angle;
+	}
+
+	public float getXtarget() {
+		return Xtarget;
+	}
+
+	public void setXtarget(float xtarget) {
+		Xtarget = xtarget;
+	}
+
+	public float getYtarget() {
+		return Ytarget;
+	}
+
+	public void setYtarget(float ytarget) {
+		Ytarget = ytarget;
 	}
 
 	

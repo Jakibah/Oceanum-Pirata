@@ -124,8 +124,8 @@ public class Screen {
 		tex.bind();
 		if (translate) {
 
-			glTranslatef(x - Main.GAME.p.getX() + Display.getWidth() / 2 - 16,
-					y - Main.GAME.p.getY() + Display.getHeight() / 2 - 16, 0);
+			glTranslatef(x - Main.GAME.p.getX() + Display.getWidth() / 2,
+					y - Main.GAME.p.getY() + Display.getHeight() / 2, 0);
 
 		} else {
 			glTranslatef(x, y, 0);

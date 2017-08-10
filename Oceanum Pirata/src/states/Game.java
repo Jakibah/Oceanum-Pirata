@@ -7,6 +7,7 @@ import org.lwjgl.opengl.GL11;
 
 import database.Textures;
 import entities.Player;
+import entities.PlayerType;
 import items.data.TestItem;
 import items.data.TestItem2;
 import main.Main;
@@ -44,7 +45,7 @@ public class Game extends GameState {
 		new SimplexNoise(seed);
 		
 		float[][] noise = NoiseGenerator.generateOctavedSimplexNoise(0, 0, 100, 100, 8, 0.3f, 0.005f);
-		p = new Player(Textures.PLAYER, 0, 0, 32, 32, 8, 2.5f);
+		p = new Player(Textures.PLAYER, 1600, 1600, 32, 32, 2, 2.5f, PlayerType.Player, 3);
 		c.setTiles(ChunkGenerator.FromSimplexNoise(noise , c.getXid(), c.getYid()));
 		ActiveChunks.add(c);
 	}
@@ -56,14 +57,12 @@ public class Game extends GameState {
 			c.Update();
 		}
 		p.Update();
-		System.out.println(InputHandler.MouseX + ", " + InputHandler.MouseY);
+		
 		ActiveChunks.removeAll(ActiveChunksToRemove);
 		ActiveChunksToRemove.clear();
 		ActiveChunks.addAll(ActiveChunksToAdd);
 		ActiveChunksToAdd.clear();
 		Main.Cardinal.Draw(10, 10, "U thiccboi");
-		angle++;
-		Screen.DrawQuadGameTex(Textures.CHEST, 0, 0, 32, 32, angle, true);
 		//System.out.println(ActiveChunks.size());
 	}
 

@@ -8,14 +8,15 @@ import main.Screen;
 public enum TileType {
 	
 	
-	Grass(false, Textures.GRASS), Chest(true, Textures.CHEST), Water(false, Textures.WATER), Sand(false, Textures.SAND);
+	Grass(false, Textures.GRASS, true), Chest(true, Textures.CHEST, true), Water(false, Textures.WATER, false), Sand(false, Textures.SAND, true);
 	
-	private boolean solid;
+	private boolean solid, walkable;
 	private Texture tex;
 	
-	TileType(boolean solid, Texture tex){
+	TileType(boolean solid, Texture tex, boolean walkable){
 		this.setSolid(solid);
 		this.setTex(tex);
+		this.setWalkable(walkable);
 		
 	}
 
@@ -33,6 +34,14 @@ public enum TileType {
 
 	public void setTex(Texture tex) {
 		this.tex = tex;
+	}
+
+	public boolean isWalkable() {
+		return walkable;
+	}
+
+	public void setWalkable(boolean walkable) {
+		this.walkable = walkable;
 	}
 
 }
