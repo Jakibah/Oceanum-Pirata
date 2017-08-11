@@ -13,12 +13,14 @@ public abstract class Entity {
 	private int Direction = 2;
 	private Point corner;
 	private Point corner2;
+	private EntityType type;
 
-	public Entity(float x, float y, float width, float height) {
+	public Entity(EntityType type ,float x, float y, float width, float height) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		this.setType(type);
 		corner = new Point((int) x, (int) y + 32);
 		corner2 = new Point((int) x + 32, (int) y - 32);
 	}
@@ -85,33 +87,32 @@ public abstract class Entity {
 				corner.getY() + ya);
 		Tile t2 = Chunk.getTileAt(corner2.getX() + xa,
 				corner2.getY() + ya);
-		if (this instanceof Player) {
-			if (Main.GAME.p.getType().equals(PlayerType.Player)) {
+		
+			if (this.getType().equals(EntityType.Land)) {
 				if (t != null && t.getType().isSolid() || !t.getType().isWalkable()) {
 					solid = true;
 				}
 				if (t2 != null && t2.getType().isSolid() || !t.getType().isWalkable()) {
 					solid = true;
 				}
-			} else if (Main.GAME.p.getType().equals(PlayerType.Boat)) {
+			} else if (this.getType().equals(EntityType.Sea)) {
 				if (t != null && t.getType().isSolid() || t.getType().isWalkable()) {
 					solid = true;
 				}
 				if (t2 != null && t2.getType().isSolid() || t.getType().isWalkable()) {
 					solid = true;
 				}
+			}else{
+				if (t != null && t.getType().isSolid()) {
+					solid = true;
+				}
+				if (t2 != null && t2.getType().isSolid()) {
+					solid = true;
+				}
 			}
-		}else{
-			if (t != null && t.getType().isSolid()) {
-				solid = true;
-			}
-			if (t2 != null && t2.getType().isSolid()) {
-				solid = true;
-			}
+			return solid;
+			
 		}
-		// System.out.println(solid);
-		return solid;
-	}
 
 	public void Update() {
 
@@ -155,6 +156,14 @@ public abstract class Entity {
 
 	public void setDirection(int direction) {
 		Direction = direction;
+	}
+
+	public EntityType getType() {
+		return type;
+	}
+
+	public void setType(EntityType type) {
+		this.type = type;
 	}
 
 }

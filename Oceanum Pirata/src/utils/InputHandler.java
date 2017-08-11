@@ -9,8 +9,8 @@ import org.lwjgl.opengl.Display;
 import database.Sounds;
 import database.Textures;
 import entities.Entity;
+import entities.EntityType;
 import entities.Player;
-import entities.PlayerType;
 import items.GroundItem;
 import items.Item;
 import items.data.TestItem;
@@ -48,7 +48,7 @@ public class InputHandler {
 		} else {
 			Running = false;
 		}
-		if (Main.GAME.p.getType().equals(PlayerType.Player)) {
+		if (Main.GAME.p.getType().equals(EntityType.Land)) {
 			if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
 				p.move(0, -1 * p.getActualSpeed());
 			}
@@ -61,7 +61,7 @@ public class InputHandler {
 			if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
 				p.move(p.getActualSpeed(), 0);
 			}
-		}else if(Main.GAME.p.getType().equals(PlayerType.Boat)){
+		}else if(Main.GAME.p.getType().equals(EntityType.Sea)){
 			if(Mouse.isButtonDown(0)){
 						Main.GAME.p.setAngle(Screen.LookAt((int)Main.GAME.p.getX(), (int)Main.GAME.p.getY(), MouseX, MouseY));
 						Main.GAME.p.sail = true;
@@ -91,10 +91,10 @@ public class InputHandler {
 			// "ms");
 			// System.exit(-1);
 			//SoundPlayer.PlaySound(Sounds.TEST, 0, 0);
-			if(Main.GAME.p.getType().equals(PlayerType.Player)){
-				Main.GAME.p.setType(PlayerType.Boat);
+			if(Main.GAME.p.getType().equals(EntityType.Land)){
+				Main.GAME.p.setType(EntityType.Sea);
 			}else{
-				Main.GAME.p.setType(PlayerType.Player);
+				Main.GAME.p.setType(EntityType.Land);
 			}
 			//Main.GAME.p.a.Play();
 			looplock = true;

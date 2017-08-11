@@ -6,8 +6,8 @@ import java.util.Random;
 import org.lwjgl.opengl.GL11;
 
 import database.Textures;
+import entities.EntityType;
 import entities.Player;
-import entities.PlayerType;
 import items.data.TestItem;
 import items.data.TestItem2;
 import main.Main;
@@ -45,7 +45,7 @@ public class Game extends GameState {
 		new SimplexNoise(seed);
 		
 		float[][] noise = NoiseGenerator.generateOctavedSimplexNoise(0, 0, 100, 100, 8, 0.3f, 0.005f);
-		p = new Player(Textures.PLAYER, 1600, 1600, 32, 32, 2, 2.5f, PlayerType.Player, 3);
+		p = new Player(Textures.PLAYER, 1600, 1600, 32, 32, 2, 2.5f, EntityType.Sea, 3);
 		c.setTiles(ChunkGenerator.FromSimplexNoise(noise , c.getXid(), c.getYid()));
 		ActiveChunks.add(c);
 	}

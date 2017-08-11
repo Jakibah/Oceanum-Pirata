@@ -19,20 +19,18 @@ public class Player extends Entity {
 	private float RunSpeed, SailSpeed;
 	private float ActualSpeed;
 	private Rectangle Collider;
-	private PlayerType type;
 	private float angle = 0;
 	private float Xtarget, Ytarget;
 	public boolean sail;
 	
 
 	public Animation a = null;
-	public Player(Texture tex, float x, float y, float width, float height, float WalkSpeed, float RunSpeed, PlayerType type, float SailSpeed) {
-		super(x, y, width, height);
+	public Player(Texture tex, float x, float y, float width, float height, float WalkSpeed, float RunSpeed, EntityType type, float SailSpeed) {
+		super(type, x, y, width, height);
 		this.tex = tex;
 		this.WalkSpeed = WalkSpeed;
 		this.RunSpeed = RunSpeed;
 		ActualSpeed = WalkSpeed;
-		this.type = type;
 		this.SailSpeed = SailSpeed;
 		Xtarget = x;
 		Ytarget = y;
@@ -51,7 +49,7 @@ public class Player extends Entity {
 	@Override
 	public void Update() {
 		super.Update();
-		if(this.getType().equals(PlayerType.Player)){
+		if(this.getType().equals(EntityType.Land)){
 		
 		a.Update();
 		
@@ -65,7 +63,7 @@ public class Player extends Entity {
 			ActualSpeed = WalkSpeed;
 			
 		}
-		}else if(this.getType().equals(PlayerType.Boat)){
+		}else if(this.getType().equals(EntityType.Sea)){
 			a.Update();
 			Screen.DrawQuadGameTex(a.getActive(), this.getX(), this.getY(), this.getWidth(), this.getHeight(), angle, true);
 			ActualSpeed = SailSpeed;
@@ -129,13 +127,7 @@ public class Player extends Entity {
 		SailSpeed = sailSpeed;
 	}
 
-	public PlayerType getType() {
-		return type;
-	}
-
-	public void setType(PlayerType type) {
-		this.type = type;
-	}
+	
 
 	public float getAngle() {
 		return angle;
