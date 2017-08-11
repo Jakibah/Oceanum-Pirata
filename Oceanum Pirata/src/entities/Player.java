@@ -1,5 +1,8 @@
 package entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.lwjgl.util.Rectangle;
 import org.newdawn.slick.opengl.Texture;
 
@@ -7,6 +10,7 @@ import animations.Animation;
 import database.Textures;
 import main.Screen;
 import tiles.Chunk;
+import utils.FileHandler;
 import utils.InputHandler;
 
 public class Player extends Entity {
@@ -19,8 +23,9 @@ public class Player extends Entity {
 	private float angle = 0;
 	private float Xtarget, Ytarget;
 	public boolean sail;
+	
 
-	Animation a = null;
+	public Animation a = null;
 	public Player(Texture tex, float x, float y, float width, float height, float WalkSpeed, float RunSpeed, PlayerType type, float SailSpeed) {
 		super(x, y, width, height);
 		this.tex = tex;
@@ -33,13 +38,16 @@ public class Player extends Entity {
 		Ytarget = y;
 		sail = false;
 		Collider = new Rectangle((int)x, (int)y, (int)width, (int)height);
-		Texture[] texes = new Texture[4];
-		texes[0] = Textures.PLAYER;
-		texes[1] = Textures.CHEST;
-		texes[2] = Textures.WATER;
-		texes[3] = Textures.SAND;
 		
-		a = new Animation(120, texes);
+		List<String> animation = new ArrayList<String>();
+		animation.add("Player,120");
+		animation.add("Chest,120");
+		animation.add("Grass,120");
+		animation.add("Sand,120");
+		
+		a = FileHandler.String2Animation(animation);
+		a.Play();
+		
 		
 		
 
@@ -49,10 +57,10 @@ public class Player extends Entity {
 	public void Update() {
 		super.Update();
 		if(this.getType().equals(PlayerType.Player)){
-		a.Play();
+		
 		a.Update();
-		tex = a.getActive();
-		Screen.DrawQuadGameTex(tex, this.getX(), this.getY(), this.getWidth(), this.getHeight(), true);
+		
+		Screen.DrawQuadGameTex(a.getActive(), this.getX(), this.getY(), this.getWidth(), this.getHeight(), true);
 		
 		if(InputHandler.Running){
 			
@@ -63,7 +71,8 @@ public class Player extends Entity {
 			
 		}
 		}else if(this.getType().equals(PlayerType.Boat)){
-			Screen.DrawQuadGameTex(tex, this.getX(), this.getY(), this.getWidth(), this.getHeight(), angle, true);
+			a.Update();
+			Screen.DrawQuadGameTex(a.getActive(), this.getX(), this.getY(), this.getWidth(), this.getHeight(), angle, true);
 			ActualSpeed = SailSpeed;
 			System.out.println(sail);
 			if(sail){

@@ -96,6 +96,7 @@ public class InputHandler {
 			}else{
 				Main.GAME.p.setType(PlayerType.Player);
 			}
+			//Main.GAME.p.a.Play();
 			looplock = true;
 
 		}
@@ -103,7 +104,8 @@ public class InputHandler {
 			looplock = false;
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
-			SoundPlayer.StopAll();
+			//SoundPlayer.StopAll();
+			//Main.GAME.p.a.Stop();
 		}
 
 	}

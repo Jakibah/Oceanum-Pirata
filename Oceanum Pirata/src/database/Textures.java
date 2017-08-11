@@ -27,6 +27,43 @@ public class Textures {
 	public static Texture RARE;
 	public static Texture WATER;
 	public static Texture SAND;
+	
+	
+	public static Texture getByName(String input) {
+		Texture toreturn = null;
+		
+		switch(input.toLowerCase()){
+		case "chest":
+			toreturn = CHEST;
+			break;
+		case "common":
+			toreturn = COMMON;
+			break;
+		case "epic":
+			toreturn = EPIC;
+			break;	
+		case "grass":
+			toreturn = GRASS;
+			break;	
+		case "legendary":
+			toreturn = LEGENDARY;
+			break;	
+		case "player":
+			toreturn = PLAYER;
+			break;
+		case "rare":
+			toreturn = RARE;
+			break;
+		case "water":
+			toreturn = WATER;
+			break;
+		case "sand":
+			toreturn = SAND;
+			break;
+		}
+		
+		return toreturn;
+	}
 		
 	
 
