@@ -39,13 +39,8 @@ public class Player extends Entity {
 		sail = false;
 		Collider = new Rectangle((int)x, (int)y, (int)width, (int)height);
 		
-		List<String> animation = new ArrayList<String>();
-		animation.add("Player,120");
-		animation.add("Chest,120");
-		animation.add("Grass,120");
-		animation.add("Sand,120");
 		
-		a = FileHandler.String2Animation(animation);
+		a = FileHandler.String2Animation(FileHandler.loadAnimation("Test"));
 		a.Play();
 		
 		

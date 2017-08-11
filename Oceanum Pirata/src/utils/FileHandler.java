@@ -1,5 +1,8 @@
 package utils;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +25,18 @@ public class FileHandler {
 		}
 		
 		return new Animation(texes, delay);
+	}
+	
+	public static List<String> loadAnimation(String filename){
+		List<String> toreturn = null;
+		File toread = new File("src/res/animations/" +filename+ ".anim");
+		try {
+			toreturn = Files.readAllLines(toread.toPath());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return toreturn;
+		
 	}
 	
 	
