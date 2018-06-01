@@ -29,6 +29,7 @@ public class Main {
 	static double currenttime = 0;
 	static int currentfps;
 	static long fpst;
+	public static long deltaTime = 0;
 	
 	public static void main(String[] args) {
 		Screen.CreateCanvas(1080, 720, "Oceanum Pirata", 120);
@@ -37,7 +38,6 @@ public class Main {
 	}
 		
 	public static void Start() {
-		
 		//TODO change hardcoded start state to menu
 		currenttime = System.currentTimeMillis() / 1000;
 		startTtime = (long)currenttime;
@@ -51,17 +51,17 @@ public class Main {
 
 	public static void Update() {
 		currenttime = System.currentTimeMillis() / 1000;
-		fpststart = System.currentTimeMillis();
+		fpststart = System.nanoTime();
 		InputHandler.Update(ActiveState.getType());
 		//SoundPlayer.CheckforFinished();
 		ActiveState.Update();
 		currentfps++;
-		fpst = (System.currentTimeMillis() - fpststart); 
-		String fpststring = String.valueOf(fpst);
+		fpst = (System.nanoTime() - fpststart); 
+		String fpststring = String.valueOf(fpst/1000);
 		if(currenttime - startTtime > 0){
 			startTtime = (long)currenttime;
-			Display.setTitle(Screen.TITLE + "   " + currentfps + "fps" + ",  " + fpststring + "ms/f");
-			
+			Display.setTitle(Screen.TITLE + "   " + currentfps + "fps" + ",  " + fpststring + "KN/f");
+			deltaTime = (long) (currenttime - startTtime);
 			currentfps = 0;
 		}
 		

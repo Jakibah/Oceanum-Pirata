@@ -1,6 +1,6 @@
 0 GrassTile
-1
-2
+1 SandTile
+2 WaterTile
 3
 4
 5

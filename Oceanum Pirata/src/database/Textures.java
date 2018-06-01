@@ -16,6 +16,7 @@ public class Textures {
 	RARE = Screen.QuickLoad("Rare");
 	WATER = Screen.QuickLoad("Water");
 	SAND = Screen.QuickLoad("Sand");
+	BOAT = Screen.QuickLoad("Boat");
 	}
 	
 	public static Texture CHEST;
@@ -27,6 +28,7 @@ public class Textures {
 	public static Texture RARE;
 	public static Texture WATER;
 	public static Texture SAND;
+	public static Texture BOAT;
 	
 	
 	public static Texture getByName(String input) {
@@ -59,6 +61,9 @@ public class Textures {
 			break;
 		case "sand":
 			toreturn = SAND;
+			break;
+		case "boat":
+			toreturn = BOAT;
 			break;
 		}
 		

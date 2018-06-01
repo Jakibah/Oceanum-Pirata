@@ -5,6 +5,7 @@ import java.util.Random;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
+import org.lwjgl.util.Rectangle;
 
 import database.Sounds;
 import database.Textures;
@@ -16,8 +17,10 @@ import items.Item;
 import items.data.TestItem;
 import main.Main;
 import main.Screen;
+import states.Game;
 import states.StateType;
 import tiles.Chunk;
+import tiles.Tile;
 import tiles.data.ChestTile;
 
 public class InputHandler {
@@ -35,8 +38,6 @@ public class InputHandler {
 
 	}
 
-	// TODO add player.getTileInFront
-
 	private static void GameInput() {
 		Player p = Main.GAME.p;
 		GUIMouseX = Mouse.getX();
@@ -50,27 +51,30 @@ public class InputHandler {
 		}
 		if (Main.GAME.p.getType().equals(EntityType.Land)) {
 			if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
-				p.move(0, -1 * p.getActualSpeed());
+				p.move(0, -p.getActualSpeed());
+
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
-				p.move(0, 1 * p.getActualSpeed());
+				p.move(0, p.getActualSpeed());
+
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
-				p.move(-1 * p.getActualSpeed(), 0);
+				p.move(-p.getActualSpeed(), 0);
+
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
 				p.move(p.getActualSpeed(), 0);
+
 			}
-		}else if(Main.GAME.p.getType().equals(EntityType.Sea)){
-			if(Mouse.isButtonDown(0)){
-						Main.GAME.p.setAngle(Screen.LookAt((int)Main.GAME.p.getX(), (int)Main.GAME.p.getY(), MouseX, MouseY));
-						Main.GAME.p.sail = true;
-						Main.GAME.p.setXtarget(MouseX);
-						Main.GAME.p.setYtarget(MouseY);
-						
-					}
-				}
-			
+		} else if (Main.GAME.p.getType().equals(EntityType.Sea)) {
+			if (Mouse.isButtonDown(0)) {
+				Main.GAME.p.setAngle(Screen.LookAt((int) Main.GAME.p.getX(), (int) Main.GAME.p.getY(), MouseX, MouseY));
+				Main.GAME.p.sail = true;
+				Main.GAME.p.setXtarget(MouseX);
+				Main.GAME.p.setYtarget(MouseY);
+
+			}
+		}
 
 		// TODO delete this check
 		if (Keyboard.isKeyDown(Keyboard.KEY_B) && !looplock) {
@@ -90,13 +94,16 @@ public class InputHandler {
 			// System.out.println(System.currentTimeMillis() - starttime +
 			// "ms");
 			// System.exit(-1);
-			//SoundPlayer.PlaySound(Sounds.TEST, 0, 0);
-			if(Main.GAME.p.getType().equals(EntityType.Land)){
+			// SoundPlayer.PlaySound(Sounds.TEST, 0, 0);
+			
+			if (Main.GAME.p.getType().equals(EntityType.Land)) {
 				Main.GAME.p.setType(EntityType.Sea);
-			}else{
+				Main.GAME.p.setX(Main.GAME.p.getX() + 50);
+			} else {
 				Main.GAME.p.setType(EntityType.Land);
+				Main.GAME.p.setX(Main.GAME.p.getX() - 50);
 			}
-			//Main.GAME.p.a.Play();
+			// Main.GAME.p.a.Play();
 			looplock = true;
 
 		}
@@ -104,10 +111,40 @@ public class InputHandler {
 			looplock = false;
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
-			//SoundPlayer.StopAll();
-			//Main.GAME.p.a.Stop();
+			// SoundPlayer.StopAll();
+			// Main.GAME.p.a.Stop();
 		}
 
+	}
+
+	public static boolean anyCollision(float x, float y, EntityType type) {
+		Rectangle rect = new Rectangle();
+		rect.setBounds((int)x,(int)y,32,32);
+		for(Chunk c : Game.ActiveChunks) {
+			for(int i = 0; i < c.getTiles().length; i++) {
+				for(int j = 0; j < c.getTiles()[i].length; j++) {
+					if(type.equals(EntityType.Land)) {
+				if(c.getTiles()[i][j].getType().isSolid() || !c.getTiles()[i][j].getType().isWalkable()) {
+				if(rect.intersects(c.getTiles()[i][j].getCollider())){	
+				
+					return true;
+				}
+				}
+				}
+			
+					else if(type.equals(EntityType.Sea)) {
+						if(c.getTiles()[i][j].getType().isSolid() ||c.getTiles()[i][j].getType().isWalkable()) {
+							if(rect.intersects(c.getTiles()[i][j].getCollider())){	
+								
+								return true;
+							}
+						}
+			}
+		}
+		}
+		
+	}
+		return false;
 	}
 
 	private static void MenuInput() {

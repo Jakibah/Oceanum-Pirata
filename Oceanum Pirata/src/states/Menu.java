@@ -66,7 +66,7 @@ public class Menu extends GameState {
 
 	@Override
 	public void Stop() {
-		// TODO Auto-generated method stub
+		
 
 	}
 	public void RemoveGUI(GUI g){

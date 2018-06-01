@@ -30,7 +30,7 @@ public class Game extends GameState {
 	public Player p;
 	public Chunk c = new Chunk(0, 0, null);
 	//public Chunk ActiveChunk = null;
-	public ArrayList<Chunk> ActiveChunks = new ArrayList<Chunk>();
+	public static ArrayList<Chunk> ActiveChunks = new ArrayList<Chunk>();
 	public ArrayList<Chunk> ActiveChunksToAdd = new ArrayList<Chunk>();
 	public ArrayList<Chunk> ActiveChunksToRemove = new ArrayList<Chunk>();
 	public int seed = 21;
@@ -45,7 +45,7 @@ public class Game extends GameState {
 		new SimplexNoise(seed);
 		
 		float[][] noise = NoiseGenerator.generateOctavedSimplexNoise(0, 0, 100, 100, 8, 0.3f, 0.005f);
-		p = new Player(Textures.PLAYER, 1600, 1600, 32, 32, 2, 2.5f, EntityType.Sea, 3);
+		p = new Player(Textures.PLAYER, 0, 1600, 32, 32, 2, 2.5f, EntityType.Sea, 3);
 		c.setTiles(ChunkGenerator.FromSimplexNoise(noise , c.getXid(), c.getYid()));
 		ActiveChunks.add(c);
 	}

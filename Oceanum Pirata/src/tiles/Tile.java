@@ -1,5 +1,7 @@
 package tiles;
 
+import org.lwjgl.util.Rectangle;
+
 import main.Main;
 import main.Screen;
 
@@ -7,6 +9,7 @@ public abstract class Tile {
 	
 	private TileType type;
 	private float x,y,width,height;
+	private Rectangle Collider = new Rectangle();
 	
 	public Tile(TileType type, float x, float y, float width, float height){
 		this.type = type;
@@ -14,7 +17,7 @@ public abstract class Tile {
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		
+		Collider.setBounds((int)x,(int) y, (int)width, (int)height);
 	}
 	
 	public void Update(){
@@ -64,6 +67,14 @@ public abstract class Tile {
 
 	public void setHeight(float height) {
 		this.height = height;
+	}
+
+	public Rectangle getCollider() {
+		return Collider;
+	}
+
+	public void setCollider(Rectangle collider) {
+		Collider = collider;
 	}
 
 	
